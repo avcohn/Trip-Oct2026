@@ -5,6 +5,14 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="פראג 2026 — טיול בנים. 30.10–1.11. בשר, בירה וקצת אדרנלין.">
+<meta name="theme-color" content="#2e1f14">
+
+<meta property="og:title" content="Prague 2026 | Boys Trip">
+<meta property="og:description" content="30.10 — 1.11 · שלושה ימים, בלי לחץ, עם הרבה בשר ובירה 🍺">
+<meta property="og:type" content="website">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍺</text></svg>">
 
 <title>Prague 2026 | Boys Trip</title>
 
@@ -41,6 +49,16 @@ html{
 scroll-behavior:smooth;
 }
 
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
 body{
 
 font-family:'Heebo',sans-serif;
@@ -53,6 +71,7 @@ overflow-x:hidden;
 section{
 
 padding:clamp(56px,9vw,90px) 24px;
+scroll-margin-top:74px;
 
 }
 
@@ -60,6 +79,15 @@ padding:clamp(56px,9vw,90px) 24px;
 
 max-width:1280px;
 margin:auto;
+
+}
+
+a:focus-visible,
+button:focus-visible{
+
+outline:3px solid var(--gold);
+outline-offset:3px;
+border-radius:4px;
 
 }
 
@@ -139,6 +167,8 @@ font-size:16px;
 
 position:relative;
 
+padding:4px 2px;
+
 }
 
 .nav-links a:after{
@@ -160,9 +190,16 @@ transition:.3s;
 
 }
 
-.nav-links a:hover:after{
+.nav-links a:hover:after,
+.nav-links a.active:after{
 
 width:100%;
+
+}
+
+.nav-links a.active{
+
+color:#f2d38a;
 
 }
 
@@ -226,6 +263,8 @@ transition:.35s;
 
 border-bottom:1px solid rgba(192,160,96,.2);
 
+pointer-events:none;
+
 }
 
 .nav-links.open{
@@ -233,6 +272,8 @@ border-bottom:1px solid rgba(192,160,96,.2);
 transform:translateY(0);
 
 opacity:1;
+
+pointer-events:auto;
 
 }
 
@@ -360,44 +401,6 @@ height:6px;
 border-radius:50%;
 
 background:var(--gold);
-
-}
-
-.logo-frame{
-
-width:clamp(150px,22vw,220px);
-height:clamp(150px,22vw,220px);
-
-margin:auto;
-
-border-radius:50%;
-
-background:white;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-box-shadow:
-
-0 25px 70px rgba(0,0,0,.35),
-
-0 0 0 8px rgba(192,160,96,.18),
-
-0 0 0 16px rgba(192,160,96,.07);
-
-overflow:hidden;
-
-margin-bottom:38px;
-
-}
-
-.logo-frame img{
-
-width:80%;
-
-height:auto;
 
 }
 
@@ -586,17 +589,6 @@ animation:scrollDot 2s infinite;
 }
 
 
-.hero-logo{
-display:flex;
-justify-content:center;
-margin:0 auto 30px;
-}
-.hero-logo img{
-width:clamp(170px,22vw,240px);
-height:auto;
-filter:drop-shadow(0 18px 40px rgba(0,0,0,.35));
-}
-
 @media(max-width:600px){
 
 .eyebrow{
@@ -640,71 +632,7 @@ justify-content:center;
 
 .progress-bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#d9b15f,#a85832);z-index:10000}
 
-</style>
-
-</head>
-
-<body>
-<div class="progress-bar" id="progressBar"></div>
-
-<nav class="top-nav">
-
-    <div class="nav-logo">
-        🍺 Prague 2026
-    </div>
-
-    <div class="nav-links" id="navLinks">
-
-        <a href="#countdown">ספירה</a>
-
-        <a href="#itinerary">לו"ז</a>
-
-    </div>
-
-    <button class="nav-toggle" id="navToggle" aria-label="תפריט">☰</button>
-
-</nav>
-<section class="hero">
-
-<div class="hero-photo"></div>
-
-<div class="hero-glow"></div>
-
-<div class="hero-ring ring-2"></div>
-
-<div class="hero-ring ring-1"></div>
-
-<div class="hero-inner">
-
-<div class="hero-logo">
-    <img src="logo.png" alt="Prague 2026">
-</div>
-
-
-<h1>Prague 2026</h1>
-
-<div class="gold-divider"><span></span><i></i><span></span></div>
-
-<div class="subtitle">
-30.10 — 1.11
-</div>
-
-<a href="#countdown" class="start-btn">
-
-🍺 יאללה מתחילים
-
-</a>
-
-</div>
-
-<div class="scroll-indicator"></div>
-
-</section>
-<section id="countdown">
-
-<div class="container">
-
-<style>
+/* ---------- COUNTDOWN ---------- */
 
 .countdown-wrapper{
 
@@ -766,6 +694,26 @@ margin:auto;
 
 }
 
+.counter.is-done{
+
+display:block;
+
+}
+
+.done-message{
+
+text-align:center;
+
+font-family:'Cormorant Garamond',serif;
+
+font-size:clamp(28px,5vw,42px);
+
+font-weight:700;
+
+color:var(--navy);
+
+}
+
 .time-box{
 
 background:linear-gradient(180deg,#ffffff,#faf7f2);
@@ -789,6 +737,8 @@ font-weight:900;
 color:var(--gold);
 
 line-height:1;
+
+font-variant-numeric:tabular-nums;
 
 }
 
@@ -816,74 +766,7 @@ padding:32px 20px;
 
 }
 
-</style>
-
-<div class="countdown-wrapper">
-
-<h2 class="section-title">
-
-Countdown
-
-</h2>
-
-<div class="section-sub">
-
-עוד קצת ואנחנו בפראג 🍺
-
-</div>
-
-<div class="counter">
-<div class="time-box"><div id="seconds" class="time-number">--</div><div class="time-label">שניות</div></div>
-
-<div class="time-box">
-
-<div id="days" class="time-number">--</div>
-
-<div class="time-label">
-
-ימים
-
-</div>
-
-</div>
-
-<div class="time-box">
-
-<div id="hours" class="time-number">--</div>
-
-<div class="time-label">
-
-שעות
-
-</div>
-
-</div>
-
-<div class="time-box">
-
-<div id="minutes" class="time-number">--</div>
-
-<div class="time-label">
-
-דקות
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-
-<section id="itinerary">
-
-<style>
+/* ---------- ITINERARY ---------- */
 
 .itinerary{
 
@@ -937,6 +820,10 @@ height:200px;
 
 overflow:hidden;
 
+position:relative;
+
+background:linear-gradient(135deg,var(--navy),var(--navy-2));
+
 }
 
 .day-image img{
@@ -956,6 +843,21 @@ transition:.5s;
 .day-card:hover .day-image img{
 
 transform:scale(1.06);
+
+}
+
+.day-image-fallback{
+
+position:absolute;
+
+inset:0;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:48px;
 
 }
 
@@ -1085,7 +987,308 @@ grid-template-columns:1fr;
 
 }
 
+/* ---------- FOOTER ---------- */
+
+.footer{
+
+background:linear-gradient(180deg,#2e1f14,#160e08);
+
+color:white;
+
+padding:clamp(56px,10vw,90px) 24px 50px;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.footer:before{
+
+content:"";
+
+position:absolute;
+
+width:500px;
+height:500px;
+
+border:1px solid rgba(255,255,255,.06);
+
+border-radius:50%;
+
+top:-260px;
+left:-180px;
+
+}
+
+.footer-inner{
+
+max-width:1200px;
+
+margin:auto;
+
+text-align:center;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.footer-title{
+
+font-family:'Cormorant Garamond',serif;
+
+font-size:clamp(36px,7vw,58px);
+
+margin-bottom:16px;
+
+letter-spacing:2px;
+
+}
+
+.footer-sub{
+
+font-size:clamp(15px,3vw,20px);
+
+opacity:.8;
+
+margin-bottom:50px;
+
+}
+
+.footer-icons{
+
+display:flex;
+
+justify-content:center;
+
+gap:18px;
+
+flex-wrap:wrap;
+
+margin-bottom:55px;
+
+}
+
+.footer-icons div{
+
+width:64px;
+height:64px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,.08);
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:30px;
+
+transition:.35s;
+
+}
+
+.footer-icons div:hover{
+
+transform:translateY(-8px);
+
+background:rgba(255,255,255,.16);
+
+}
+
+.back-top{
+
+display:inline-flex;
+
+align-items:center;
+gap:12px;
+
+padding:16px 34px;
+
+border-radius:999px;
+
+background:var(--gold);
+
+color:white;
+
+text-decoration:none;
+
+font-weight:800;
+
+transition:.3s;
+
+border:none;
+
+cursor:pointer;
+
+font-family:inherit;
+
+font-size:15px;
+
+}
+
+.back-top:hover{
+
+transform:translateY(-4px);
+
+}
+
+.footer-copy{
+
+margin-top:45px;
+
+font-size:14px;
+
+opacity:.55;
+
+letter-spacing:2px;
+
+}
+
+.reveal{
+
+opacity:0;
+
+transform:translateY(40px);
+
+transition:all .8s ease;
+
+}
+
+.reveal.active{
+
+opacity:1;
+
+transform:none;
+
+}
+
 </style>
+
+</head>
+
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="top-nav">
+
+    <div class="nav-logo">
+        🍺 Prague 2026
+    </div>
+
+    <div class="nav-links" id="navLinks">
+
+        <a href="#countdown">ספירה</a>
+
+        <a href="#itinerary">לו"ז</a>
+
+    </div>
+
+    <button class="nav-toggle" id="navToggle" aria-label="פתח תפריט" aria-expanded="false" aria-controls="navLinks">☰</button>
+
+</nav>
+<section class="hero">
+
+<div class="hero-photo"></div>
+
+<div class="hero-glow"></div>
+
+<div class="hero-ring ring-2"></div>
+
+<div class="hero-ring ring-1"></div>
+
+<div class="hero-inner">
+<h1>Prague 2026</h1>
+
+<div class="gold-divider"><span></span><i></i><span></span></div>
+
+<div class="subtitle">
+30.10 — 1.11
+</div>
+
+<a href="#countdown" class="start-btn">
+
+🍺 יאללה מתחילים
+
+</a>
+
+</div>
+
+<div class="scroll-indicator" aria-hidden="true"></div>
+
+</section>
+<section id="countdown">
+
+<div class="container">
+
+<div class="countdown-wrapper">
+
+<h2 class="section-title">
+
+Countdown
+
+</h2>
+
+<div class="section-sub" id="countdownSub">
+
+עוד קצת ואנחנו בפראג 🍺
+
+</div>
+
+<div class="counter" id="counter">
+
+<div class="time-box">
+
+<div id="days" class="time-number">--</div>
+
+<div class="time-label">
+
+ימים
+
+</div>
+
+</div>
+
+<div class="time-box">
+
+<div id="hours" class="time-number">--</div>
+
+<div class="time-label">
+
+שעות
+
+</div>
+
+</div>
+
+<div class="time-box">
+
+<div id="minutes" class="time-number">--</div>
+
+<div class="time-label">
+
+דקות
+
+</div>
+
+</div>
+
+<div class="time-box"><div id="seconds" class="time-number">--</div><div class="time-label">שניות</div></div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section id="itinerary">
 
 <div class="container">
 
@@ -1109,7 +1312,8 @@ grid-template-columns:1fr;
 
 <div class="day-image">
 
-<img src="1.jfif" alt="יום שישי - פראג">
+<img src="1.jfif" alt="יום שישי - פראג" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="day-image-fallback" style="display:none">🌉</div>
 
 </div>
 
@@ -1251,7 +1455,8 @@ grid-template-columns:1fr;
 
 <div class="day-image">
 
-<img src="2.jfif" alt="יום שבת - פראג">
+<img src="2.jfif" alt="יום שבת - פראג" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="day-image-fallback" style="display:none">🍺</div>
 
 </div>
 
@@ -1371,7 +1576,8 @@ LEVELS
 
 <div class="day-image">
 
-<img src="3.jfif" alt="יום ראשון - פראג">
+<img src="3.jfif" alt="יום ראשון - פראג" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="day-image-fallback" style="display:none">✈️</div>
 
 </div>
 
@@ -1471,179 +1677,6 @@ LEVELS
 
 <footer class="footer">
 
-<style>
-
-.footer{
-
-background:linear-gradient(180deg,#2e1f14,#160e08);
-
-color:white;
-
-padding:clamp(56px,10vw,90px) 24px 50px;
-
-position:relative;
-
-overflow:hidden;
-
-}
-
-.footer:before{
-
-content:"";
-
-position:absolute;
-
-width:500px;
-height:500px;
-
-border:1px solid rgba(255,255,255,.06);
-
-border-radius:50%;
-
-top:-260px;
-left:-180px;
-
-}
-
-.footer-inner{
-
-max-width:1200px;
-
-margin:auto;
-
-text-align:center;
-
-position:relative;
-
-z-index:2;
-
-}
-
-.footer-title{
-
-font-family:'Cormorant Garamond',serif;
-
-font-size:clamp(36px,7vw,58px);
-
-margin-bottom:16px;
-
-letter-spacing:2px;
-
-}
-
-.footer-sub{
-
-font-size:clamp(15px,3vw,20px);
-
-opacity:.8;
-
-margin-bottom:50px;
-
-}
-
-.footer-icons{
-
-display:flex;
-
-justify-content:center;
-
-gap:18px;
-
-flex-wrap:wrap;
-
-margin-bottom:55px;
-
-}
-
-.footer-icons div{
-
-width:64px;
-height:64px;
-
-border-radius:20px;
-
-background:rgba(255,255,255,.08);
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:30px;
-
-transition:.35s;
-
-}
-
-.footer-icons div:hover{
-
-transform:translateY(-8px);
-
-background:rgba(255,255,255,.16);
-
-}
-
-.back-top{
-
-display:inline-flex;
-
-align-items:center;
-gap:12px;
-
-padding:16px 34px;
-
-border-radius:999px;
-
-background:var(--gold);
-
-color:white;
-
-text-decoration:none;
-
-font-weight:800;
-
-transition:.3s;
-
-}
-
-.back-top:hover{
-
-transform:translateY(-4px);
-
-}
-
-.footer-copy{
-
-margin-top:45px;
-
-font-size:14px;
-
-opacity:.55;
-
-letter-spacing:2px;
-
-}
-
-.reveal{
-
-opacity:0;
-
-transform:translateY(40px);
-
-transition:all .8s ease;
-
-}
-
-.reveal.active{
-
-opacity:1;
-
-transform:none;
-
-}
-
-</style>
-
 <div class="footer-inner reveal">
 
 <div class="footer-title">
@@ -1652,7 +1685,7 @@ Prague 2026
 
 </div>
 
-<div class="footer-icons">
+<div class="footer-icons" aria-hidden="true">
 
 <div>🍺</div>
 <div>🥩</div>
@@ -1663,11 +1696,11 @@ Prague 2026
 
 </div>
 
-<a href="#" class="back-top">
+<button class="back-top" id="backTop" type="button">
 
 ⬆ חזרה להתחלה
 
-</a>
+</button>
 
 <div class="footer-copy">
 
@@ -1685,11 +1718,22 @@ Made with 🍺 for the Prague Boys • 2026
 
 const targetDate = new Date("2026-10-30T06:00:00");
 
+const counterEl = document.getElementById("counter");
+const subEl = document.getElementById("countdownSub");
+
 function updateCountdown(){
 
 const diff = targetDate - new Date();
 
-if(diff<=0)return;
+if(diff<=0){
+
+counterEl.classList.add("is-done");
+counterEl.innerHTML = '<div class="done-message">הגענו! תיהנו בפראג 🍺✈️</div>';
+subEl.textContent = "הטיול כבר כאן";
+clearInterval(countdownTimer);
+return;
+
+}
 
 const days=Math.floor(diff/86400000);
 const hours=Math.floor((diff%86400000)/3600000);
@@ -1704,7 +1748,7 @@ document.getElementById("seconds").textContent=seconds;
 }
 
 updateCountdown();
-setInterval(updateCountdown,1000);
+const countdownTimer = setInterval(updateCountdown,1000);
 
 /* Reveal Animation */
 
@@ -1733,6 +1777,15 @@ observer.observe(el);
 
 /* Smooth Scroll + close mobile menu on click */
 
+const navToggle = document.getElementById("navToggle");
+const navLinks = document.getElementById("navLinks");
+
+function closeMenu(){
+  navLinks.classList.remove("open");
+  navToggle.setAttribute("aria-expanded","false");
+  navToggle.textContent="☰";
+}
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
 
 anchor.addEventListener("click",function(e){
@@ -1749,7 +1802,7 @@ behavior:"smooth"
 
 });
 
-document.getElementById("navLinks").classList.remove("open");
+closeMenu();
 
 }
 
@@ -1757,33 +1810,64 @@ document.getElementById("navLinks").classList.remove("open");
 
 });
 
-/* Nav scroll state */
+document.getElementById("backTop").addEventListener("click", ()=>{
+  window.scrollTo({top:0, behavior:"smooth"});
+  closeMenu();
+});
+
+/* Nav scroll state + active link highlight */
+
+const navSections = document.querySelectorAll("section[id]");
+const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
 
 window.addEventListener("scroll", () => {
 
     const nav = document.querySelector(".top-nav");
 
-    if (!nav) return;
-
-    if (window.scrollY > 80) {
-        nav.classList.add("scrolled");
-    } else {
-        nav.classList.remove("scrolled");
+    if (nav){
+      if (window.scrollY > 80) {
+          nav.classList.add("scrolled");
+      } else {
+          nav.classList.remove("scrolled");
+      }
     }
+
+    let current = "";
+    navSections.forEach(sec=>{
+      const rect = sec.getBoundingClientRect();
+      if(rect.top <= 120 && rect.bottom >= 120){
+        current = sec.id;
+      }
+    });
+
+    navAnchors.forEach(a=>{
+      a.classList.toggle("active", a.getAttribute("href") === "#"+current);
+    });
 
 });
 
 /* Mobile nav toggle */
 
-const navToggle = document.getElementById("navToggle");
-const navLinks = document.getElementById("navLinks");
-
 navToggle.addEventListener("click", () => {
 
-navLinks.classList.toggle("open");
+const isOpen = navLinks.classList.toggle("open");
+navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+navToggle.textContent = isOpen ? "✕" : "☰";
 
 });
 
+document.addEventListener("click", (e)=>{
+  if(navLinks.classList.contains("open") && !navLinks.contains(e.target) && !navToggle.contains(e.target)){
+    closeMenu();
+  }
+});
+
+document.addEventListener("keydown", (e)=>{
+  if(e.key === "Escape" && navLinks.classList.contains("open")){
+    closeMenu();
+    navToggle.focus();
+  }
+});
 
 const progressBar=document.getElementById("progressBar");
 window.addEventListener("scroll",()=>{
