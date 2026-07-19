@@ -585,6 +585,18 @@ animation:scrollDot 2s infinite;
 
 }
 
+
+.hero-logo{
+display:flex;
+justify-content:center;
+margin:0 auto 30px;
+}
+.hero-logo img{
+width:clamp(170px,22vw,240px);
+height:auto;
+filter:drop-shadow(0 18px 40px rgba(0,0,0,.35));
+}
+
 @media(max-width:600px){
 
 .eyebrow{
@@ -666,11 +678,11 @@ justify-content:center;
 
 <div class="eyebrow">טיול הגברים • פראג</div>
 
-<div class="logo-frame">
 
-<img src="logo.png" alt="Prague 2026">
-
+<div class="hero-logo">
+    <img src="logo.png" alt="Prague 2026">
 </div>
+
 
 <h1>Prague 2026</h1>
 
@@ -678,12 +690,6 @@ justify-content:center;
 
 <div class="subtitle">
 30.10 — 1.11
-</div>
-
-<div class="trip-type">
-
-שישה חברים • שלושה ימים
-
 </div>
 
 <a href="#countdown" class="start-btn">
