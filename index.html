@@ -11,19 +11,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Cormorant+Garamond:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
 
---navy:#10233f;
---gold:#c79b46;
---cream:#fbf7ef;
---paper:#fffdf8;
---text:#223047;
---muted:#68768c;
---line:#eadfca;
+--navy:#2e1f14;
+--navy-2:#8b5a2b;
+--gold:#c0a060;
+--terracotta:#a85832;
+--accent-blue:#4c6e8c;
+--cream:#e9dcc0;
+--paper:#f5f1e4;
+--text:#33261a;
+--muted:#8a7550;
+--line:#e3d3ae;
 --shadow:0 18px 45px rgba(16,35,63,.12);
 
 }
@@ -49,7 +52,7 @@ overflow-x:hidden;
 
 section{
 
-padding:90px 24px;
+padding:clamp(56px,9vw,90px) 24px;
 
 }
 
@@ -70,7 +73,7 @@ top:0;
 left:0;
 right:0;
 
-height:78px;
+height:74px;
 
 display:flex;
 
@@ -78,11 +81,11 @@ justify-content:space-between;
 
 align-items:center;
 
-padding:0 50px;
+padding:0 clamp(20px,5vw,50px);
 
 z-index:9999;
 
-background:rgba(12,24,43,.28);
+background:rgba(30,20,13,.32);
 
 backdrop-filter:blur(14px);
 
@@ -92,7 +95,7 @@ transition:.35s;
 
 .top-nav.scrolled{
 
-background:rgba(10,20,35,.92);
+background:rgba(26,18,11,.94);
 
 box-shadow:0 10px 30px rgba(0,0,0,.18);
 
@@ -100,13 +103,19 @@ box-shadow:0 10px 30px rgba(0,0,0,.18);
 
 .nav-logo{
 
-font-size:24px;
+font-size:21px;
 
 font-weight:900;
 
 color:white;
 
-letter-spacing:2px;
+letter-spacing:1px;
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
 
 }
 
@@ -157,24 +166,83 @@ width:100%;
 
 }
 
+.nav-toggle{
+
+display:none;
+
+width:40px;
+height:40px;
+
+border:none;
+
+background:rgba(255,255,255,.1);
+
+border-radius:10px;
+
+color:white;
+
+font-size:20px;
+
+cursor:pointer;
+
+align-items:center;
+justify-content:center;
+
+}
+
 @media(max-width:900px){
 
-.top-nav{
+.nav-toggle{
 
-padding:0 20px;
+display:flex;
 
 }
 
 .nav-links{
 
-display:none;
+position:fixed;
+
+top:74px;
+left:0;
+right:0;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:22px;
+
+padding:28px 0 32px;
+
+background:rgba(24,16,10,.98);
+
+backdrop-filter:blur(14px);
+
+transform:translateY(-130%);
+
+opacity:0;
+
+transition:.35s;
+
+border-bottom:1px solid rgba(192,160,96,.2);
+
+}
+
+.nav-links.open{
+
+transform:translateY(0);
+
+opacity:1;
 
 }
 
 }
+
+/* ---------- HERO ---------- */
+
 .hero{
 
-min-height:100vh;
+min-height:100svh;
 
 display:flex;
 align-items:center;
@@ -183,45 +251,64 @@ justify-content:center;
 position:relative;
 overflow:hidden;
 
+background:linear-gradient(165deg,#1a120b 0%,#2e1f14 50%,#5c3d1f 100%);
+
+padding-top:74px;
+
+}
+
+.hero-photo{
+
+position:absolute;
+inset:0;
+
 background:
-linear-gradient(rgba(10,20,35,.55),rgba(10,20,35,.70)),
+linear-gradient(165deg,rgba(26,18,11,.88) 10%,rgba(46,31,20,.72) 55%,rgba(74,50,30,.85) 100%),
 url("https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=2200&q=80");
 
 background-size:cover;
 background-position:center;
-background-attachment:fixed;
+
+opacity:.55;
 
 }
 
-.hero:before{
-
-content:"";
+.hero-glow{
 
 position:absolute;
 
 inset:0;
 
 background:
-radial-gradient(circle at top right,
-rgba(199,155,70,.20),
-transparent 40%);
+
+radial-gradient(circle at 82% 12%,rgba(192,160,96,.24),transparent 42%),
+
+radial-gradient(circle at 10% 90%,rgba(192,160,96,.12),transparent 45%);
+
+pointer-events:none;
 
 }
 
-.hero h1{
-
-content:"";
+.hero-ring{
 
 position:absolute;
 
-width:650px;
-height:650px;
+top:50%;
+left:50%;
 
-border:1px solid rgba(199,155,70,.10);
+border:1px solid rgba(192,160,96,.16);
 
 border-radius:50%;
 
+transform:translate(-50%,-50%);
+
+pointer-events:none;
+
 }
+
+.ring-1{ width:520px; height:520px; }
+
+.ring-2{ width:680px; height:680px; border-color:rgba(192,160,96,.09); }
 
 .hero-inner{
 
@@ -230,16 +317,56 @@ z-index:2;
 
 text-align:center;
 
-max-width:900px;
+max-width:820px;
 
-padding:30px;
+padding:20px 24px;
+
+}
+
+.eyebrow{
+
+display:inline-flex;
+
+align-items:center;
+gap:10px;
+
+padding:9px 22px;
+
+border:1px solid rgba(192,160,96,.4);
+
+border-radius:999px;
+
+color:#f2d38a;
+
+font-size:13px;
+
+font-weight:800;
+
+letter-spacing:3px;
+
+background:rgba(192,160,96,.08);
+
+margin-bottom:36px;
+
+}
+
+.eyebrow:before{
+
+content:"";
+
+width:6px;
+height:6px;
+
+border-radius:50%;
+
+background:var(--gold);
 
 }
 
 .logo-frame{
 
-width:260px;
-height:260px;
+width:clamp(150px,22vw,220px);
+height:clamp(150px,22vw,220px);
 
 margin:auto;
 
@@ -254,19 +381,21 @@ justify-content:center;
 
 box-shadow:
 
-0 25px 70px rgba(0,0,0,.08),
+0 25px 70px rgba(0,0,0,.35),
 
-0 0 0 10px rgba(199,155,70,.12),
+0 0 0 8px rgba(192,160,96,.18),
 
-0 0 0 20px rgba(199,155,70,.05);
+0 0 0 16px rgba(192,160,96,.07);
 
 overflow:hidden;
+
+margin-bottom:38px;
 
 }
 
 .logo-frame img{
 
-width:82%;
+width:80%;
 
 height:auto;
 
@@ -276,27 +405,69 @@ height:auto;
 
 font-family:'Cormorant Garamond',serif;
 
-font-size:92px;
+font-size:clamp(44px,8.5vw,96px);
+
+font-weight:700;
+
 color:white;
-text-shadow:0 10px 30px rgba(0,0,0,.45);
 
-margin-top:40px;
+text-shadow:0 10px 30px rgba(0,0,0,.4);
 
-letter-spacing:2px;
+letter-spacing:1px;
 
-color:var(--navy);
+line-height:1.05;
+
+}
+
+.gold-divider{
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+gap:14px;
+
+margin:22px auto 20px;
+
+width:180px;
+
+}
+
+.gold-divider span{
+
+height:1px;
+
+flex:1;
+
+background:linear-gradient(90deg,transparent,var(--gold));
+
+}
+
+.gold-divider span:last-child{
+
+background:linear-gradient(90deg,var(--gold),transparent);
+
+}
+
+.gold-divider i{
+
+width:7px;
+height:7px;
+
+background:var(--gold);
+
+transform:rotate(45deg);
 
 }
 
 .subtitle{
 
-margin-top:18px;
-
-font-size:34px;
+font-size:clamp(22px,4vw,32px);
 
 font-weight:800;
 
-letter-spacing:4px;
+letter-spacing:5px;
 
 color:#f2d38a;
 
@@ -304,9 +475,17 @@ color:#f2d38a;
 
 .trip-type{
 
-margin-top:18px;
+display:inline-block;
 
-font-size:24px;
+margin-top:22px;
+
+padding:10px 26px;
+
+border:1px solid rgba(255,255,255,.28);
+
+border-radius:999px;
+
+font-size:15px;
 
 font-weight:700;
 
@@ -314,7 +493,7 @@ color:white;
 
 letter-spacing:3px;
 
-opacity:.92;
+background:rgba(255,255,255,.06);
 
 }
 
@@ -325,17 +504,17 @@ display:inline-flex;
 align-items:center;
 gap:12px;
 
-margin-top:55px;
+margin-top:48px;
 
-padding:18px 40px;
+padding:18px 42px;
 
-background:linear-gradient(135deg,#d7a545,#b88322);
+background:linear-gradient(135deg,#d99a4a,#a85832);
 
-color:#18263d;
+color:#2e1f14;
 
 text-decoration:none;
 
-font-size:18px;
+font-size:17px;
 
 font-weight:800;
 
@@ -343,16 +522,15 @@ border-radius:999px;
 
 transition:.35s;
 
-box-shadow:var(--shadow);
+box-shadow:0 18px 40px rgba(192,160,96,.28);
 
 }
 
 .start-btn:hover{
 
-transform:translateY(-6px) scale(1.04);
+transform:translateY(-5px) scale(1.03);
 
-box-shadow:
-0 18px 45px rgba(0,0,0,.25);
+box-shadow:0 22px 50px rgba(192,160,96,.4);
 
 }
 
@@ -360,53 +538,76 @@ box-shadow:
 
 position:absolute;
 
-bottom:35px;
+bottom:30px;
 
 left:50%;
 
 transform:translateX(-50%);
 
-font-size:14px;
+width:26px;
+height:42px;
 
-color:#9d8454;
+border:2px solid rgba(242,211,138,.5);
 
-letter-spacing:3px;
+border-radius:16px;
 
-animation:float 2s infinite;
-
-}
-
-@keyframes float{
-
-0%,100%{transform:translate(-50%,0);}
-50%{transform:translate(-50%,-10px);}
+z-index:2;
 
 }
 
-@media(max-width:900px){
+.scroll-indicator:before{
 
-.logo-frame{
+content:"";
 
-width:190px;
-height:190px;
+position:absolute;
+
+top:8px;
+left:50%;
+
+width:4px;
+height:8px;
+
+background:#f2d38a;
+
+border-radius:2px;
+
+transform:translateX(-50%);
+
+animation:scrollDot 2s infinite;
 
 }
 
-.hero h1{
+@keyframes scrollDot{
 
-font-size:52px;
+0%{ transform:translate(-50%,0); opacity:1; }
+70%{ transform:translate(-50%,14px); opacity:0; }
+100%{ opacity:0; }
+
+}
+
+@media(max-width:600px){
+
+.eyebrow{
+
+font-size:11px;
+
+letter-spacing:2px;
+
+padding:8px 16px;
 
 }
 
 .subtitle{
 
-font-size:22px;
+letter-spacing:3px;
 
 }
 
 .trip-type{
 
-font-size:16px;
+font-size:13px;
+
+letter-spacing:2px;
 
 }
 
@@ -417,6 +618,10 @@ width:100%;
 justify-content:center;
 
 }
+
+.ring-1{ width:340px; height:340px; }
+
+.ring-2{ width:440px; height:440px; }
 
 }
 
@@ -432,20 +637,30 @@ justify-content:center;
         🍺 Prague 2026
     </div>
 
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
 
         <a href="#countdown">ספירה</a>
 
         <a href="#itinerary">לו"ז</a>
 
-        <a href="#activities">אטרקציות</a>
-
     </div>
+
+    <button class="nav-toggle" id="navToggle" aria-label="תפריט">☰</button>
 
 </nav>
 <section class="hero">
 
+<div class="hero-photo"></div>
+
+<div class="hero-glow"></div>
+
+<div class="hero-ring ring-2"></div>
+
+<div class="hero-ring ring-1"></div>
+
 <div class="hero-inner">
+
+<div class="eyebrow">טיול הגברים • פראג</div>
 
 <div class="logo-frame">
 
@@ -455,13 +670,15 @@ justify-content:center;
 
 <h1>Prague 2026</h1>
 
+<div class="gold-divider"><span></span><i></i><span></span></div>
+
 <div class="subtitle">
 30.10 — 1.11
 </div>
 
 <div class="trip-type">
 
-טיול הגברים
+שישה חברים • שלושה ימים
 
 </div>
 
@@ -473,11 +690,7 @@ justify-content:center;
 
 </div>
 
-<div class="scroll-indicator">
-
-SCROLL
-
-</div>
+<div class="scroll-indicator"></div>
 
 </section>
 <section id="countdown">
@@ -492,7 +705,7 @@ background:var(--paper);
 
 border-radius:34px;
 
-padding:55px;
+padding:clamp(28px,6vw,55px);
 
 box-shadow:var(--shadow);
 
@@ -510,7 +723,7 @@ z-index:10;
 
 font-family:'Cormorant Garamond',serif;
 
-font-size:56px;
+font-size:clamp(34px,6vw,56px);
 
 text-align:center;
 
@@ -528,7 +741,7 @@ color:var(--muted);
 
 margin-bottom:45px;
 
-font-size:18px;
+font-size:clamp(15px,2.4vw,18px);
 
 }
 
@@ -538,7 +751,7 @@ display:grid;
 
 grid-template-columns:repeat(3,1fr);
 
-gap:25px;
+gap:clamp(14px,3vw,25px);
 
 max-width:700px;
 
@@ -554,7 +767,7 @@ border:1px solid var(--line);
 
 border-radius:24px;
 
-padding:35px;
+padding:clamp(20px,4vw,35px);
 
 text-align:center;
 
@@ -562,7 +775,7 @@ text-align:center;
 
 .time-number{
 
-font-size:64px;
+font-size:clamp(38px,8vw,64px);
 
 font-weight:900;
 
@@ -576,7 +789,7 @@ line-height:1;
 
 margin-top:12px;
 
-font-size:16px;
+font-size:14px;
 
 font-weight:700;
 
@@ -586,117 +799,11 @@ color:var(--muted);
 
 }
 
-.people-grid{
-
-margin-top:80px;
-
-display:grid;
-
-grid-template-columns:repeat(3,1fr);
-
-gap:24px;
-
-}
-
-.person{
-
-background:white;
-
-border-radius:22px;
-
-padding:30px;
-
-border:1px solid var(--line);
-
-text-align:center;
-
-transition:.3s;
-
-}
-
-.person:hover{
-
-transform:translateY(-8px);
-
-box-shadow:var(--shadow);
-
-}
-
-.avatar{
-
-width:82px;
-height:82px;
-
-margin:auto;
-
-border-radius:50%;
-
-background:linear-gradient(135deg,var(--gold),#e6c175);
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:34px;
-
-margin-bottom:18px;
-
-}
-
-.person-name{
-
-font-size:24px;
-
-font-weight:800;
-
-color:var(--navy);
-
-}
-
-.person-role{
-
-margin-top:8px;
-
-font-size:14px;
-
-color:var(--muted);
-
-letter-spacing:2px;
-
-text-transform:uppercase;
-
-}
-
 @media(max-width:900px){
-
-.counter{
-
-grid-template-columns:1fr;
-
-}
-
-.people-grid{
-
-grid-template-columns:1fr;
-
-}
 
 .countdown-wrapper{
 
-padding:35px 22px;
-
-}
-
-.section-title{
-
-font-size:42px;
-
-}
-
-.time-number{
-
-font-size:52px;
+padding:32px 20px;
 
 }
 
@@ -758,60 +865,6 @@ Countdown
 
 </div>
 
-<div style="height:90px"></div>
-
-<h2 class="section-title">
-
-המשתתפים
-
-</h2>
-
-<div class="section-sub">
-
-מי יוצא לכבוש את פראג
-
-</div>
-
-<div class="people-grid">
-
-<div class="person">
-<div class="avatar">👤</div>
-<div class="person-name">יאיר</div>
-<div class="person-role">Beer Captain</div>
-</div>
-
-<div class="person">
-<div class="avatar">👤</div>
-<div class="person-name">גילי</div>
-<div class="person-role">Good Vibes</div>
-</div>
-
-<div class="person">
-<div class="avatar">👤</div>
-<div class="person-name">מאור</div>
-<div class="person-role">Navigator</div>
-</div>
-
-<div class="person">
-<div class="avatar">👤</div>
-<div class="person-name">אבירם</div>
-<div class="person-role">Night Shift</div>
-</div>
-
-<div class="person">
-<div class="avatar">👤</div>
-<div class="person-name">אבי ד.</div>
-<div class="person-role">Steaks Expert</div>
-</div>
-
-<div class="person">
-<div class="avatar">👤</div>
-<div class="person-name">אבי כ.</div>
-<div class="person-role">Trip Manager</div>
-</div>
-
-</div>
-
 </div>
 
 </div>
@@ -868,11 +921,41 @@ transform:translateY(-10px);
 
 }
 
+.day-image{
+
+width:100%;
+
+height:200px;
+
+overflow:hidden;
+
+}
+
+.day-image img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+display:block;
+
+transition:.5s;
+
+}
+
+.day-card:hover .day-image img{
+
+transform:scale(1.06);
+
+}
+
 .day-header{
 
-padding:34px;
+padding:26px 34px;
 
-background:linear-gradient(135deg,var(--navy),#1c3f6e);
+background:linear-gradient(135deg,var(--navy),var(--navy-2));
 
 color:white;
 
@@ -880,11 +963,13 @@ color:white;
 
 .day-date{
 
-font-size:18px;
+font-size:16px;
 
 letter-spacing:2px;
 
-opacity:.8;
+color:#a9c3d6;
+
+opacity:.95;
 
 margin-bottom:8px;
 
@@ -892,7 +977,7 @@ margin-bottom:8px;
 
 .day-title{
 
-font-size:34px;
+font-size:clamp(26px,4vw,34px);
 
 font-weight:900;
 
@@ -1013,6 +1098,12 @@ grid-template-columns:1fr;
 <!-- DAY 1 -->
 
 <div class="day-card">
+
+<div class="day-image">
+
+<img src="1.jpg" alt="יום שישי - פראג">
+
+</div>
 
 <div class="day-header">
 
@@ -1150,6 +1241,12 @@ grid-template-columns:1fr;
 
 <div class="day-card">
 
+<div class="day-image">
+
+<img src="2.jpg" alt="יום שבת - פראג">
+
+</div>
+
 <div class="day-header">
 
 <div class="day-date">
@@ -1264,6 +1361,12 @@ LEVELS
 
 <div class="day-card">
 
+<div class="day-image">
+
+<img src="3.jpg" alt="יום ראשון - פראג">
+
+</div>
+
 <div class="day-header">
 
 <div class="day-date">
@@ -1358,460 +1461,17 @@ LEVELS
 
 </section>
 
-<section id="activities" class="activities">
-
-<style>
-
-.activities{
-
-background:white;
-
-}
-
-.activities-grid{
-
-display:grid;
-
-grid-template-columns:repeat(3,1fr);
-
-gap:26px;
-
-margin-top:60px;
-
-}
-
-.activity{
-
-position:relative;
-
-background:linear-gradient(180deg,#ffffff,#fbf8f1);
-
-border:1px solid var(--line);
-
-border-radius:28px;
-
-padding:34px;
-
-overflow:hidden;
-
-transition:.35s;
-
-box-shadow:0 10px 35px rgba(0,0,0,.05);
-
-}
-
-.activity:hover{
-
-transform:translateY(-10px);
-
-box-shadow:0 28px 60px rgba(0,0,0,.12);
-
-}
-
-.activity:before{
-
-content:"";
-
-position:absolute;
-
-top:-60px;
-left:-60px;
-
-width:160px;
-height:160px;
-
-background:rgba(199,155,70,.08);
-
-border-radius:50%;
-
-}
-
-.activity-icon{
-
-position:relative;
-
-width:72px;
-height:72px;
-
-border-radius:22px;
-
-background:var(--navy);
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:34px;
-
-margin-bottom:24px;
-
-}
-
-.activity h3{
-
-position:relative;
-
-font-size:28px;
-
-color:var(--navy);
-
-margin-bottom:12px;
-
-}
-
-.activity p{
-
-position:relative;
-
-font-size:15px;
-
-line-height:1.8;
-
-color:var(--muted);
-
-margin-bottom:24px;
-
-}
-
-.activity span{
-
-display:inline-block;
-
-padding:10px 18px;
-
-border-radius:999px;
-
-background:#f5ecdb;
-
-color:var(--gold);
-
-font-weight:800;
-
-font-size:13px;
-
-letter-spacing:1px;
-
-}
-
-.levels{
-
-margin-top:70px;
-
-background:
-
-linear-gradient(135deg,#101f38,#1c3d67);
-
-border-radius:34px;
-
-padding:70px;
-
-text-align:center;
-
-color:white;
-
-overflow:hidden;
-
-position:relative;
-
-}
-
-.levels:before{
-
-content:"";
-
-position:absolute;
-
-width:420px;
-height:420px;
-
-background:rgba(255,255,255,.05);
-
-border-radius:50%;
-
-top:-220px;
-right:-120px;
-
-}
-
-.levels h2{
-
-position:relative;
-
-font-size:72px;
-
-letter-spacing:6px;
-
-margin-bottom:20px;
-
-}
-
-.levels p{
-
-position:relative;
-
-max-width:700px;
-
-margin:auto;
-
-font-size:20px;
-
-line-height:1.9;
-
-opacity:.9;
-
-}
-
-.levels .fire{
-
-font-size:80px;
-
-display:block;
-
-margin-bottom:25px;
-
-}
-
-@media(max-width:1000px){
-
-.activities-grid{
-
-grid-template-columns:1fr;
-
-}
-
-.levels{
-
-padding:45px 28px;
-
-}
-
-.levels h2{
-
-font-size:48px;
-
-}
-
-}
-
-</style>
-
-<div class="container">
-
-<h2 class="section-title">
-
-אטרקציות
-
-</h2>
-
-<div class="section-sub">
-
-כל אחד בוחר מה בא לו. או שכולם עושים הכול...
-
-</div>
-
-<div class="activities-grid">
-
-<div class="activity">
-
-<div class="activity-icon">
-🔫
-</div>
-
-<h3>
-
-מטווח
-
-</h3>
-
-<p>
-
-פותחים את היום עם קצת אדרנלין ודיוק.
-
-</p>
-
-<span>
-
-TARGET MODE
-
-</span>
-
-</div>
-
-<div class="activity">
-
-<div class="activity-icon">
-🍺
-</div>
-
-<h3>
-
-Beer Spa
-
-</h3>
-
-<p>
-
-אמבטיית בירה, בירה ללא הגבלה ורוגע מוחלט.
-
-</p>
-
-<span>
-
-RELAX
-
-</span>
-
-</div>
-
-<div class="activity">
-
-<div class="activity-icon">
-🪓
-</div>
-
-<h3>
-
-Axe Throwing
-
-</h3>
-
-<p>
-
-תחרות בין כולם.
-המפסיד קונה את הסיבוב הבא.
-
-</p>
-
-<span>
-
-COMPETITION
-
-</span>
-
-</div>
-
-<div class="activity">
-
-<div class="activity-icon">
-🏎️
-</div>
-
-<h3>
-
-סימולטור
-
-</h3>
-
-<p>
-
-פורמולה, מרוצים ומהירות בלי לקבל דו"ח.
-
-</p>
-
-<span>
-
-FULL SPEED
-
-</span>
-
-</div>
-
-<div class="activity">
-
-<div class="activity-icon">
-🔐
-</div>
-
-<h3>
-
-חדר בריחה
-
-</h3>
-
-<p>
-
-בואו נראה אם באמת יש לנו עבודת צוות...
-
-</p>
-
-<span>
-
-TEAM PLAY
-
-</span>
-
-</div>
-
-<div class="activity">
-
-<div class="activity-icon">
-🎳
-</div>
-
-<h3>
-
-באולינג + פאבים
-
-</h3>
-
-<p>
-
-באולינג, בירה,
-ואז ממשיכים ישר לסבב פאבים בעיר.
-
-</p>
-
-<span>
-
-NIGHT OUT
-
-</span>
-
-</div>
-
-</div>
-
-<div class="levels">
-
-<span class="fire">
-
-🔥
-
-</span>
-
-<h2>
-
-LEVELS
-
-</h2>
-
-<p>
-
-הלילה המרכזי של הטיול.
-
-מוזיקה, אלכוהול, אווירה טובה,
-והרבה סיפורים שלא נספר בבית...
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
 <footer class="footer">
 
 <style>
 
 .footer{
 
-background:linear-gradient(180deg,#0d1f39,#081425);
+background:linear-gradient(180deg,#2e1f14,#160e08);
 
 color:white;
 
-padding:90px 24px 50px;
+padding:clamp(56px,10vw,90px) 24px 50px;
 
 position:relative;
 
@@ -1855,7 +1515,7 @@ z-index:2;
 
 font-family:'Cormorant Garamond',serif;
 
-font-size:58px;
+font-size:clamp(36px,7vw,58px);
 
 margin-bottom:16px;
 
@@ -1865,7 +1525,7 @@ letter-spacing:2px;
 
 .footer-sub{
 
-font-size:20px;
+font-size:clamp(15px,3vw,20px);
 
 opacity:.8;
 
@@ -1889,8 +1549,8 @@ margin-bottom:55px;
 
 .footer-icons div{
 
-width:74px;
-height:74px;
+width:64px;
+height:64px;
 
 border-radius:20px;
 
@@ -1901,7 +1561,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:34px;
+font-size:30px;
 
 transition:.35s;
 
@@ -1974,37 +1634,6 @@ transform:none;
 
 }
 
-@media(max-width:900px){
-
-.footer-title{
-
-font-size:42px;
-
-}
-
-.footer-sub{
-
-font-size:17px;
-
-}
-
-.footer-icons{
-
-gap:12px;
-
-}
-
-.footer-icons div{
-
-width:60px;
-height:60px;
-
-font-size:28px;
-
-}
-
-}
-
 </style>
 
 <div class="footer-inner reveal">
@@ -2012,12 +1641,6 @@ font-size:28px;
 <div class="footer-title">
 
 Prague 2026
-
-</div>
-
-<div class="footer-sub">
-
-🍺 שלושה ימים • שישה חברים • אינסוף חוויות 🍺
 
 </div>
 
@@ -2089,7 +1712,7 @@ entry.target.classList.add("active");
 
 },{threshold:.15});
 
-document.querySelectorAll("section,.day-card,.activity,.person,.footer-inner")
+document.querySelectorAll("section,.day-card,.footer-inner")
 .forEach(el=>{
 
 el.classList.add("reveal");
@@ -2098,7 +1721,7 @@ observer.observe(el);
 
 });
 
-/* Smooth Scroll */
+/* Smooth Scroll + close mobile menu on click */
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
 
@@ -2116,11 +1739,16 @@ behavior:"smooth"
 
 });
 
+document.getElementById("navLinks").classList.remove("open");
+
 }
 
 });
 
 });
+
+/* Nav scroll state */
+
 window.addEventListener("scroll", () => {
 
     const nav = document.querySelector(".top-nav");
@@ -2132,6 +1760,17 @@ window.addEventListener("scroll", () => {
     } else {
         nav.classList.remove("scrolled");
     }
+
+});
+
+/* Mobile nav toggle */
+
+const navToggle = document.getElementById("navToggle");
+const navLinks = document.getElementById("navLinks");
+
+navToggle.addEventListener("click", () => {
+
+navLinks.classList.toggle("open");
 
 });
 
